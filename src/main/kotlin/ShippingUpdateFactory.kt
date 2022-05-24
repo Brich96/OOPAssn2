@@ -1,10 +1,8 @@
 import ShippingUpdate.*
 
 class ShippingUpdateFactory {
-    private val shipments: MutableList<Shipment> = mutableListOf()
 
     fun getFactoryItem(parsible: MutableList<String>): ShippingUpdate? {
-//        var id: String, var status: String, var notes: MutableList<String>, var expectedDeliveryDateTimestamp: Long, var currentLocation: String
         if(parsible[0] == "shipped") {
             return ShippedShippingUpdate(parsible)
         } else if(parsible[0] == "location") {
@@ -22,9 +20,5 @@ class ShippingUpdateFactory {
         } else {
             return null
         }
-    }
-
-    fun findShipment(id: String): Shipment? {
-        return shipments.find { it.id == id }
     }
 }
