@@ -12,11 +12,6 @@ class TrackingSimulator {
     }
 
     fun runSimulation() {
-        // TODO: Parse file and add shipments
-        // TODO: if array[0] == "created" make shipment
-        // TODO: if array[0] is not created then send to factory
-        // TODO: send update to correct shipment
-
         File("src/main/kotlin/test.txt").forEachLine {
             val array = it.split(",").toMutableList()
             if(array[0] == "created") {
@@ -30,5 +25,4 @@ class TrackingSimulator {
             }
         }
     }
-
 }

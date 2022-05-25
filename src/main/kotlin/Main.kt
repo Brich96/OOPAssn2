@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -17,10 +18,11 @@ import androidx.compose.ui.window.application
 @Composable
 @Preview
 fun App() {
-    var text by remember { mutableStateOf("Hello, World!") }
+    val simulator: TrackingSimulator = TrackingSimulator()
+    simulator.runSimulation()
     var trackingTextState by remember { mutableStateOf("") }
     @Composable
-    fun ShippingInfoCard() {
+    fun ShippingInfoCard(viewHelper: TrackerViewHelper) {
         Card(
             modifier = Modifier
                 .fillMaxWidth()
@@ -29,13 +31,13 @@ fun App() {
             elevation = 10.dp
         ) {
             Column {
-                Text(text)
+                Text(viewHelper.shipmentID)
             }
         }
     }
 
     MaterialTheme {
-//        val viewHelpers by remember { mutableStateListOf<TrackerViewHelper>() }
+        val viewHelpers = remember { mutableStateListOf<TrackerViewHelper>() }
         Column {
             Row {
                 TextField(trackingTextState, { newValue ->
@@ -43,30 +45,24 @@ fun App() {
                 })
                 Button(onClick = {
                     // Button on click event here
+                    if(trackingTextState != "") {
+                        val shipment = simulator.findShipment(trackingTextState)
+                        println(simulator.shipments)
+                        println(shipment)
+                        if(shipment != null) {
+                            viewHelpers.add(TrackerViewHelper(shipment))
+                        }
+                    }
                 }) {
                     Text("Track")
                 }
             }
-            ShippingInfoCard()
             LazyColumn {
-//                items(viewHelpers) { viewHelper ->
-//                    // TODO:
-//                }
+                items(viewHelpers) { viewHelper ->
+                    ShippingInfoCard(viewHelper)
+                }
             }
         }
-
-//        Column {
-//            Button(onClick = {
-//                text = "Hello, Desktop!"
-//            }) {
-//                Text(text)
-//            }
-//            Button(onClick = {
-//                text2 = "Hello, Button2!"
-//            }) {
-//                Text(text2)
-//            }
-//        }
     }
 }
 

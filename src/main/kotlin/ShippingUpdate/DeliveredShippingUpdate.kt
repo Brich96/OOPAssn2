@@ -1,7 +1,7 @@
 package ShippingUpdate
 
-class DeliveredShippingUpdate(val parisble: MutableList<String>) : ShippingUpdate {
-    override fun getUpdate() {
-        TODO("Not yet implemented")
+class DeliveredShippingUpdate(val parsible: MutableList<String>) : ShippingUpdate {
+    override fun getUpdate(): Pair<String, MutableList<String>> {
+        return Pair("statusUpdate",mutableListOf("Delivered", "Delivered at ${parsible[2]}"))
     }
 }
