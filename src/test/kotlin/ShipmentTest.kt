@@ -22,4 +22,15 @@ internal class ShipmentTest {
 
         assertEquals(2,shipment.updateHistory.size)
     }
+
+    @Test
+    fun addNote() {
+        val factory = ShippingUpdateFactory()
+        val update = factory.getFactoryItem(mutableListOf("noteadded","s10005","1652712855468","package was damaged slightly during shipping"))
+        if (update != null) {
+            shipment.addUpdate(update)
+        }
+
+        assertEquals(1,shipment.notes.size)
+    }
 }

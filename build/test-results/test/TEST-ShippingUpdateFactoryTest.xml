@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ShippingUpdateFactoryTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2022-05-26T04:17:02" hostname="LAPTOP-GUI2OG5N" time="0.061">
+  <properties/>
+  <testcase name="getFactoryItemReturnsCanceledShippingUpdate()" classname="ShippingUpdateFactoryTest" time="0.038"/>
+  <testcase name="getFactoryItemReturnsShippedShippingUpdate()" classname="ShippingUpdateFactoryTest" time="0.002"/>
+  <testcase name="getFactoryItemReturnsLostShippingUpdate()" classname="ShippingUpdateFactoryTest" time="0.003"/>
+  <testcase name="getFactoryItemReturnsDelayedUpdate()" classname="ShippingUpdateFactoryTest" time="0.003"/>
+  <testcase name="getFactoryItemReturnsDeliveredShippingUpdate()" classname="ShippingUpdateFactoryTest" time="0.004"/>
+  <testcase name="getFactoryItemReturnsLocationShippingUpdate()" classname="ShippingUpdateFactoryTest" time="0.002"/>
+  <testcase name="getFactoryItemReturnsNoteAddedShippingUpdate()" classname="ShippingUpdateFactoryTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
