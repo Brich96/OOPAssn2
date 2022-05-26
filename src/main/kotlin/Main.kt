@@ -14,30 +14,47 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 @Composable
 @Preview
-fun App() {
-    val simulator: TrackingSimulator = TrackingSimulator()
-    simulator.runSimulation()
+fun App(simulator: TrackingSimulator) {
     var trackingTextState by remember { mutableStateOf("") }
+    val viewHelpers = remember { mutableStateListOf<TrackerViewHelper>() }
+    simulator.runSimulation()
+//    rememberCoroutineScope().launch { simulator.runSimulation() }
     @Composable
     fun ShippingInfoCard(viewHelper: TrackerViewHelper) {
         Card(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(15.dp)
-                .clickable{ },
+                .clickable{
+                         viewHelpers.remove(viewHelper)
+                },
             elevation = 10.dp
         ) {
             Column {
-                Text(viewHelper.shipmentID)
+                Text(" Tracking shipment: " + viewHelper.shipmentID)
+                Text("Status: " + viewHelper.shipmentStatus)
+                Text("Location: " + viewHelper.shipmentLocation)
+                Text("Expected Delivery: "  + viewHelper.expectedShipmentDeliveryDate)
+                Text("")
+                Text("Status Updates: ")
+                viewHelper.shipmentUpateHistory.forEach {
+                    Text(it)
+                }
+
+                Text("Notes: ")
+                viewHelper.shipmentNotes.forEach {
+                    Text(it)
+                }
             }
         }
     }
 
     MaterialTheme {
-        val viewHelpers = remember { mutableStateListOf<TrackerViewHelper>() }
         Column {
             Row {
                 TextField(trackingTextState, { newValue ->
@@ -47,8 +64,6 @@ fun App() {
                     // Button on click event here
                     if(trackingTextState != "") {
                         val shipment = simulator.findShipment(trackingTextState)
-                        println(simulator.shipments)
-                        println(shipment)
                         if(shipment != null) {
                             viewHelpers.add(TrackerViewHelper(shipment))
                         }
@@ -67,7 +82,14 @@ fun App() {
 }
 
 fun main() = application {
+    val simulator: TrackingSimulator = TrackingSimulator()
+
     Window(onCloseRequest = ::exitApplication) {
-        App()
+        App(simulator)
+//        runBlocking {
+//            launch {
+//                simulator.runSimulation()
+//            }
+//        }
     }
 }

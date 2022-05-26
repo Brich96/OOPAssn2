@@ -6,14 +6,4 @@ class TrackerViewHelper(shipment: Shipment) {
     var expectedShipmentDeliveryDate: Long? = shipment.expectedDeliveryDateTimestamp
     var shipmentStatus: String = shipment.status
     var shipmentLocation: String? = shipment.currentLocation
-
-    fun trackShipment(id: String) {
-        // TODO: implement
-    }
-
-    fun stopTracking() {
-
-    }
-
-
 }
